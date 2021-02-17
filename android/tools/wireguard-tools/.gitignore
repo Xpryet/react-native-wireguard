@@ -1,0 +1,14 @@
+cscope.out
+*.o
+*.d
+*.dwo
+src/wg
+src/wg.exe
+*.swp
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.pro.user
+maint/

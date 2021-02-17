@@ -1,0 +1,21 @@
+{
+  "name": "react-native-wireguard",
+  "version": "1.1.51",
+  "description": "WireGuard bridge for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "Cosku Bas",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react-native": "^0.41.2",
+    "react-native-swift": "^0.3.0"
+  },
+  "dependencies": {
+    "react-native-webview": "^5.2.0"
+  }
+}

@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+
+version wireguardVersionName
+group groupName
+
+android {
+    compileSdkVersion 30
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode wireguardVersionCode
+        versionName wireguardVersionName
+    }
+    externalNativeBuild {
+        cmake {
+            path 'tools/CMakeLists.txt'
+        }
+    }
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure { enabled = false }
+    }
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
+    buildTypes {
+        release {
+            externalNativeBuild {
+                cmake {
+                    arguments "-DANDROID_PACKAGE_NAME=${groupName}", "-DGRADLE_USER_HOME=${project.gradle.gradleUserHomeDir}"
+                }
+            }
+        }
+        debug {
+            externalNativeBuild {
+                cmake {
+                    arguments "-DANDROID_PACKAGE_NAME=${groupName}.debug", "-DGRADLE_USER_HOME=${project.gradle.gradleUserHomeDir}"
+                }
+            }
+        }
+    }
+    lintOptions {
+        disable('LongLogTag')
+        disable('NewApi') // Desugaring!
+    }
+}
+
+dependencies {
+    implementation "androidx.annotation:annotation:$annotationsVersion"
+    implementation "androidx.collection:collection:$collectionVersion"
+    implementation "com.google.code.findbugs:jsr305:$jsr305Version"
+    testImplementation "junit:junit:$junitVersion"
+}
+
+apply from: "publish.gradle"
